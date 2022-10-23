@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/coordinator"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
+    android:fitsSystemWindows="true"
+    android:background="@color/main"
+    >
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_top"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_welcome_to"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginStart="@dimen/spacing_xlarge"
+                    android:text="@string/welcome_to"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textColor="@color/text_login_title"
+                    android:textSize="@dimen/text_size_xxxxxlarge"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"/>
+
+                <TextView
+                    android:id="@+id/tv_airport_dcs"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/tv_welcome_to"
+                    app:layout_constraintStart_toStartOf="@id/tv_welcome_to"
+                    android:text="@string/airport_dcs"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/poppins_bold"
+                    android:textColor="@color/text_login_title"
+                    android:textSize="@dimen/text_size_xxxxxlarge"/>
+
+                <View
+                    android:layout_width="3dp"
+                    android:layout_height="0dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="#E31F26"
+                    app:layout_constraintTop_toTopOf="@id/tv_welcome_to"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_airport_dcs"
+                    app:layout_constraintEnd_toStartOf="@id/tv_welcome_to"/>
+
+
+                    <TextView
+                        android:id="@+id/tv_sign_in"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="32dp"
+                        android:text="Sign In"
+                        android:textSize="20sp"
+                        android:textColor="#30454E"
+                        android:fontFamily="@font/poppins_bold"
+                        app:layout_constraintTop_toBottomOf="@id/tv_airport_dcs"
+                        app:layout_constraintStart_toStartOf="@id/tv_airport_dcs"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="@dimen/spacing_45"
+                android:background="@drawable/ic_login_background"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cl_top">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/txt_input_username"
+                    style="@style/AppTextInputLayoutStyle"
+                    android:layout_marginTop="48dp"
+                    android:hint="@string/login_username"
+                    app:hintEnabled="true"
+                    android:layout_marginStart="27dp"
+                    android:layout_marginEnd="27dp"
+                    app:hintTextColor="@color/text_color_primary"
+                    app:placeholderTextColor="@color/text_color_hint_primary"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edt_username"
+                        style="@style/AppTextInputEditTextGeneral"
+                        android:inputType="text"
+                        android:maxLines="1" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/txt_input_password"
+                    style="@style/AppTextInputLayoutStyle"
+                    android:layout_marginStart="27dp"
+                    android:layout_marginEnd="27dp"
+                    android:layout_below="@+id/txt_input_username"
+                    android:layout_marginTop="@dimen/spacing_sxlarge"
+                    android:hint="@string/login_password"
+                    app:hintEnabled="true"
+                    app:hintTextColor="@color/text_color_primary"
+                    app:passwordToggleDrawable="@drawable/ic_pass_hide"
+                    app:passwordToggleEnabled="true"
+                    app:passwordToggleTint="@color/black"
+                    app:placeholderTextColor="@color/text_color_hint_primary"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/txt_input_username">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edt_password"
+                        style="@style/AppTextInputEditTextGeneral"
+                        android:inputType="textPassword"
+                        android:maxLines="1" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_login"
+                    style="@style/TextAppearance.App.Medium.Bold"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/button_height_primary"
+                    android:layout_alignParentBottom="true"
+                    android:background="@drawable/bg_button_tertiary"
+                    android:text="@string/login_button"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_mlarge"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

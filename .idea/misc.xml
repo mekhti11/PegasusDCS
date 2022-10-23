@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/mekhti.gumbatov/AndroidStudioProjects/PegasusDCS/app/src/main/res/drawable/bg_btn_radius.xml" value="0.135" />
+        <entry key="..\:/Users/mekhti.gumbatov/AndroidStudioProjects/PegasusDCS/app/src/main/res/drawable/bg_btn_radius_secondary.xml" value="0.1995" />
+        <entry key="..\:/Users/mekhti.gumbatov/AndroidStudioProjects/PegasusDCS/app/src/main/res/drawable/bg_button_tertiary.xml" value="0.123" />
+        <entry key="..\:/Users/mekhti.gumbatov/AndroidStudioProjects/PegasusDCS/app/src/main/res/drawable/bg_content.xml" value="0.1485" />
+        <entry key="..\:/Users/mekhti.gumbatov/AndroidStudioProjects/PegasusDCS/app/src/main/res/drawable/ic_arrow_right.xml" value="0.135" />
+        <entry key="..\:/Users/mekhti.gumbatov/AndroidStudioProjects/PegasusDCS/app/src/main/res/drawable/ic_baggage_tracking.xml" value="0.135" />
+        <entry key="..\:/Users/mekhti.gumbatov/AndroidStudioProjects/PegasusDCS/app/src/main/res/drawable/ic_bottom_rounded_button.xml" value="0.123" />
+        <entry key="..\:/Users/mekhti.gumbatov/AndroidStudioProjects/PegasusDCS/app/src/main/res/drawable/ic_circle.xml" value="0.1485" />
+        <entry key="..\:/Users/mekhti.gumbatov/AndroidStudioProjects/PegasusDCS/app/src/main/res/drawable/ic_dotted_line.xml" value="0.1485" />
+        <entry key="..\:/Users/mekhti.gumbatov/AndroidStudioProjects/PegasusDCS/app/src/main/res/drawable/ic_flashlight_white_48dp.xml" value="0.105" />
+        <entry key="..\:/Users/mekhti.gumbatov/AndroidStudioProjects/PegasusDCS/app/src/main/res/drawable/ic_flight.xml" value="0.135" />
+        <entry key="..\:/Users/mekhti.gumbatov/AndroidStudioProjects/PegasusDCS/app/src/main/res/drawable/ic_login_background.xml" value="0.123" />
+        <entry key="..\:/Users/mekhti.gumbatov/AndroidStudioProjects/PegasusDCS/app/src/main/res/drawable/ic_logo_pgs.xml" value="0.1" />
+        <entry key="..\:/Users/mekhti.gumbatov/AndroidStudioProjects/PegasusDCS/app/src/main/res/drawable/ic_logout.xml" value="0.1995" />
+        <entry key="..\:/Users/mekhti.gumbatov/AndroidStudioProjects/PegasusDCS/app/src/main/res/drawable/ic_menu_expand.xml" value="0.135" />
+        <entry key="..\:/Users/mekhti.gumbatov/AndroidStudioProjects/PegasusDCS/app/src/main/res/drawable/ic_notifications_black_24.xml" value="0.135" />
+        <entry key="..\:/Users/mekhti.gumbatov/AndroidStudioProjects/PegasusDCS/app/src/main/res/drawable/ic_pass_hide.xml" value="0.13333333333333333" />
+        <entry key="..\:/Users/mekhti.gumbatov/AndroidStudioProjects/PegasusDCS/app/src/main/res/drawable/ic_search.xml" value="0.1485" />
+        <entry key="..\:/Users/mekhti.gumbatov/AndroidStudioProjects/PegasusDCS/app/src/main/res/drawable/ic_settings.xml" value="0.1995" />
+        <entry key="..\:/Users/mekhti.gumbatov/AndroidStudioProjects/PegasusDCS/app/src/main/res/drawable/ic_toolbar_back.xml" value="0.123" />
+        <entry key="..\:/Users/mekhti.gumbatov/AndroidStudioProjects/PegasusDCS/app/src/main/res/drawable/rounded_search_bar.xml" value="0.1485" />
+        <entry key="..\:/Users/mekhti.gumbatov/AndroidStudioProjects/PegasusDCS/app/src/main/res/drawable/rounded_shape.xml" value="0.123" />
+        <entry key="..\:/Users/mekhti.gumbatov/AndroidStudioProjects/PegasusDCS/app/src/main/res/layout/activity_content.xml" value="0.19895833333333332" />
+        <entry key="..\:/Users/mekhti.gumbatov/AndroidStudioProjects/PegasusDCS/app/src/main/res/layout/activity_main.xml" value="0.2" />
+        <entry key="..\:/Users/mekhti.gumbatov/AndroidStudioProjects/PegasusDCS/app/src/main/res/layout/activity_scan_barcode.xml" value="0.16417272338606242" />
+        <entry key="..\:/Users/mekhti.gumbatov/AndroidStudioProjects/PegasusDCS/app/src/main/res/layout/content_flight_detail.xml" value="0.1633176571184267" />
+        <entry key="..\:/Users/mekhti.gumbatov/AndroidStudioProjects/PegasusDCS/app/src/main/res/layout/content_flight_list.xml" value="0.16417272338606242" />
+        <entry key="..\:/Users/mekhti.gumbatov/AndroidStudioProjects/PegasusDCS/app/src/main/res/layout/content_home.xml" value="0.16417272338606242" />
+        <entry key="..\:/Users/mekhti.gumbatov/AndroidStudioProjects/PegasusDCS/app/src/main/res/layout/content_kranger_scan.xml" value="0.1633176571184267" />
+        <entry key="..\:/Users/mekhti.gumbatov/AndroidStudioProjects/PegasusDCS/app/src/main/res/layout/content_scan_barcode.xml" value="0.1633176571184267" />
+        <entry key="..\:/Users/mekhti.gumbatov/AndroidStudioProjects/PegasusDCS/app/src/main/res/layout/content_zebra_scan.xml" value="0.1633176571184267" />
+        <entry key="..\:/Users/mekhti.gumbatov/AndroidStudioProjects/PegasusDCS/app/src/main/res/layout/custom_barcode_scanner.xml" value="0.1633176571184267" />
+        <entry key="..\:/Users/mekhti.gumbatov/AndroidStudioProjects/PegasusDCS/app/src/main/res/layout/dialog_progress_bar.xml" value="0.25" />
+        <entry key="..\:/Users/mekhti.gumbatov/AndroidStudioProjects/PegasusDCS/app/src/main/res/layout/home_expand_menu.xml" value="0.1633176571184267" />
+        <entry key="..\:/Users/mekhti.gumbatov/AndroidStudioProjects/PegasusDCS/app/src/main/res/layout/item_flight.xml" value="0.16417272338606242" />
+        <entry key="..\:/Users/mekhti.gumbatov/AndroidStudioProjects/PegasusDCS/app/src/main/res/layout/item_flight_list_card.xml" value="0.1633176571184267" />
+        <entry key="..\:/Users/mekhti.gumbatov/AndroidStudioProjects/PegasusDCS/app/src/main/res/layout/toolbar.xml" value="0.2" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

@@ -1,0 +1,20 @@
+package com.hititcs.pegasusdcs.view;
+
+import android.view.View;
+
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.RecyclerView;
+
+public abstract class ItemViewHolder extends RecyclerView.ViewHolder {
+
+  public final CardView mCardView;
+
+  public ItemViewHolder(View itemView) {
+    super(itemView);
+    if (itemView instanceof CardView) {
+      mCardView = (CardView) itemView;
+    } else {
+      mCardView = null;
+    }
+  }
+}
