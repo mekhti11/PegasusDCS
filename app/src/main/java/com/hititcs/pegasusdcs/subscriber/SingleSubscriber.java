@@ -63,7 +63,7 @@ public abstract class SingleSubscriber<T> implements SingleObserver<T>, MySubscr
             }
             Timber.d("Error response body %s", errorResponseBody);
             try {
-              errorMessage = new JSONObject(errorResponseBody).getString("message");
+              errorMessage = new JSONObject(errorResponseBody).getString("errorCode");
             } catch (JSONException e1) {
               Timber.e(e1);
             }
@@ -96,12 +96,52 @@ public abstract class SingleSubscriber<T> implements SingleObserver<T>, MySubscr
       }
       Timber.d("Error response body %s", errorResponseBody);
       try {
-        errorMessage = new JSONObject(errorResponseBody).getString("message");
+        errorMessage = new JSONObject(errorResponseBody).getString("errorCode");
       } catch (JSONException e1) {
         Timber.e(e1);
       }
     }
 
-    return errorMessage;
+    return getError(errorMessage);
+  }
+
+  public String getError(String errorMessage){
+    String error = null;
+
+    if (errorMessage!=null){
+      switch (errorMessage){
+        case("ERR_C00"):
+        case("ERR_C87"): {
+          error = "UNDEFINED ERROR";
+          break;
+        }
+        case("ERR_C50"):{
+          error = "INVALID TOKEN";
+          break;
+        }
+        case("ERR_D58"):{
+          error = "BOARDING ERROR";
+          break;
+        }
+        case("ERR_D141"):{
+          error = "FLIGHT MISMATCH";
+          break;
+        }
+        case("ERR_D142"):{
+          error = "ALREADY BOARDED";
+          break;
+        }
+        case("ERR_D146"):{
+          error = "BARCODE EMPTY";
+          break;
+        }
+        case("ERR_D147"):{
+          error = "BARCODE PARSE ERROR";
+          break;
+        }
+      }
+    }
+
+    return error;
   }
 }

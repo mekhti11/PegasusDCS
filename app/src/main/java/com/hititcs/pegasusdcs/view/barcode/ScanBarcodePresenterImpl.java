@@ -46,7 +46,7 @@ public class ScanBarcodePresenterImpl implements ScanBarcodePresenter {
 
       @Override
       public void onError(Throwable e) {
-        responseListener.onError(MessageUtils.getMessage(super.getErrorMessage(e)));
+        responseListener.onError(super.getErrorMessage(e));
         scanBarcodeView.hideProgressDialog();
       }
     }, request);
