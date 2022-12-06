@@ -134,6 +134,7 @@
 
                     <RelativeLayout
                         android:id="@+id/rlt_baggage_tracking"
+                        android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/button_height_primary"
                         android:background="@drawable/bg_btn_radius"
