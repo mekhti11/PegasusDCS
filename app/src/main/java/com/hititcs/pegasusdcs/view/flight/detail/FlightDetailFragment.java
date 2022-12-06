@@ -187,6 +187,11 @@ public class FlightDetailFragment extends BaseFragment<FlightDetailFragment> imp
     tvTopFlightStatus.setText(String.format("%s: %s", getString(R.string.item_flight_flight_status),
         flightsOutputDto.getMobileDcsFlight().getStatus()));
     tvFlightStatus.setText(flightsOutputDto.getMobileDcsFlight().getStatus());
+
+    if(tvFlightStatus.getText().toString().equals("RZ")){
+      scanBarcodeButton.setVisibility(View.INVISIBLE);
+    }
+
     rltFlightDetail.setVisibility(View.VISIBLE);
     AnimUtils.animateShowView(rltFlightDetail);
   }
