@@ -191,6 +191,7 @@ public class FlightDetailFragment extends BaseFragment<FlightDetailFragment> imp
     if(tvFlightStatus.getText().toString().equals("CI") || tvFlightStatus.getText().toString().equals("CC")){
       scanBarcodeButton.setVisibility(View.VISIBLE);
     }
+
     else{
       scanBarcodeButton.setVisibility(View.GONE);
     }
