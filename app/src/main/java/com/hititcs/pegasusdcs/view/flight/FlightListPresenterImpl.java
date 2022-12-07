@@ -26,7 +26,6 @@ public class FlightListPresenterImpl implements FlightListPresenter {
     @Override
     public void getFlightList(LocalDate selectedDate) {
         GetFlightsReq flightListRequest = new GetFlightsReq();
-        flightListRequest.setDepPort("SAW");
         flightListRequest.setSchDeptDate(DateTimeUtils.formatDateToRequestFormat(selectedDate));
 
 //        flightListRequest.setEndDate(DateTimeUtils.formatDateToRequestFormat(selectedDate));
