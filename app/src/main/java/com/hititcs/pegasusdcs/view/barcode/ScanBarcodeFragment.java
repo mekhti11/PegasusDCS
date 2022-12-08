@@ -285,7 +285,9 @@ public class ScanBarcodeFragment extends BaseFragment<ScanBarcodeFragment> imple
 
   @Override
   public void showBarcodeResult(BoardingResponse data) {
-    boardedCount.setText(String.valueOf(data.getMobileDcsFlight().getDeparture().getSegmentFigure().getTotalBoardedPassenger()));
+    if (data.getMobileDcsFlight().getArrivalList().size()>0) {
+      boardedCount.setText(String.valueOf(data.getMobileDcsFlight().getArrivalList().get(0).getSegmentFigure().getTotalBoardedPassenger()));
+    }
     showResultIcon(true, null);
   }
 
@@ -311,10 +313,8 @@ public class ScanBarcodeFragment extends BaseFragment<ScanBarcodeFragment> imple
 
   private void onBarcodeResult(BoardingResponse response) {
     Timber.d("Service response %s", response);
-    try {
-      boardedCount.setText(String.valueOf(response.getMobileDcsFlight().getDeparture().getSegmentFigure().getTotalBoardedPassenger()));
-    } catch (Exception e) {
-      Timber.e(e);
+    if (response.getMobileDcsFlight().getArrivalList().size()>0) {
+      boardedCount.setText(String.valueOf(response.getMobileDcsFlight().getArrivalList().get(0).getSegmentFigure().getTotalBoardedPassenger()));
     }
     showResultIcon(true, null);
   }

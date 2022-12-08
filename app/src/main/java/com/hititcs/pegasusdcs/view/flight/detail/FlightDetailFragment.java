@@ -160,25 +160,28 @@ public class FlightDetailFragment extends BaseFragment<FlightDetailFragment> imp
     tvAircraft.setText(flightsOutputDto.getMobileDcsFlight().getEquipmentType().getAirEquipTypeModel());
 
     tvGateDetail.setText(flightsOutputDto.getMobileDcsFlight().getBoardingGate());
-    if (flightsOutputDto.getMobileDcsFlight().getDeparture().getSegmentFigure()!=null &&
-            !String.valueOf(flightsOutputDto.getMobileDcsFlight().getDeparture().getSegmentFigure().getTotalBoardedPassenger()).isEmpty()) {
-      tvBoarded.setText(String.valueOf(flightsOutputDto.getMobileDcsFlight().getDeparture().getSegmentFigure().getTotalBoardedPassenger()));
-      boardedCount = String.valueOf(flightsOutputDto.getMobileDcsFlight().getDeparture().getSegmentFigure().getTotalBoardedPassenger());
-    } else {
-      tvBoarded.setText("0");
-      boardedCount = "0";
-    }
-    if (flightsOutputDto.getMobileDcsFlight().getDeparture().getSegmentFigure()!=null &&
-            !String.valueOf(flightsOutputDto.getMobileDcsFlight().getDeparture().getSegmentFigure().getTotalCheckedPassenger()).isEmpty()) {
-      tvCheckIn.setText(String.valueOf(flightsOutputDto.getMobileDcsFlight().getDeparture().getSegmentFigure().getTotalCheckedPassenger()));
-    } else {
-      tvCheckIn.setText("0");
-    }
-    if (flightsOutputDto.getMobileDcsFlight().getDeparture().getSegmentFigure()!=null &&
-            !String.valueOf(flightsOutputDto.getMobileDcsFlight().getDeparture().getSegmentFigure().getTotalUnboardedPassenger()).isEmpty()) {
-      tvUnboarded.setText(String.valueOf(flightsOutputDto.getMobileDcsFlight().getDeparture().getSegmentFigure().getTotalUnboardedPassenger()));
-    } else {
-      tvUnboarded.setText("0");
+    if (flightsOutputDto.getMobileDcsFlight().getArrivalList()!=null &&
+            flightsOutputDto.getMobileDcsFlight().getArrivalList().size()>0) {
+      if (flightsOutputDto.getMobileDcsFlight().getArrivalList().get(0).getSegmentFigure() != null &&
+              !String.valueOf(flightsOutputDto.getMobileDcsFlight().getArrivalList().get(0).getSegmentFigure().getTotalBoardedPassenger()).isEmpty()) {
+        tvBoarded.setText(String.valueOf(flightsOutputDto.getMobileDcsFlight().getArrivalList().get(0).getSegmentFigure().getTotalBoardedPassenger()));
+        boardedCount = String.valueOf(flightsOutputDto.getMobileDcsFlight().getArrivalList().get(0).getSegmentFigure().getTotalBoardedPassenger());
+      } else {
+        tvBoarded.setText("0");
+        boardedCount = "0";
+      }
+      if (flightsOutputDto.getMobileDcsFlight().getArrivalList().get(0).getSegmentFigure() != null &&
+              !String.valueOf(flightsOutputDto.getMobileDcsFlight().getArrivalList().get(0).getSegmentFigure().getTotalCheckedPassenger()).isEmpty()) {
+        tvCheckIn.setText(String.valueOf(flightsOutputDto.getMobileDcsFlight().getArrivalList().get(0).getSegmentFigure().getTotalCheckedPassenger()));
+      } else {
+        tvCheckIn.setText("0");
+      }
+      if (flightsOutputDto.getMobileDcsFlight().getArrivalList().get(0).getSegmentFigure() != null &&
+              !String.valueOf(flightsOutputDto.getMobileDcsFlight().getArrivalList().get(0).getSegmentFigure().getTotalUnboardedPassenger()).isEmpty()) {
+        tvUnboarded.setText(String.valueOf(flightsOutputDto.getMobileDcsFlight().getArrivalList().get(0).getSegmentFigure().getTotalUnboardedPassenger()));
+      } else {
+        tvUnboarded.setText("0");
+      }
     }
 //
     tvBoardingGate.setText(flightsOutputDto.getMobileDcsFlight().getBoardingGate());

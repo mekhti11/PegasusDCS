@@ -502,10 +502,8 @@ public class ScanBarcodeZebraFragment extends BaseFragment<ScanBarcodeZebraFragm
 
   private void onBarcodeResult(BoardingResponse response) {
     Timber.d("Service response %s", response);
-    try {
-      boardedCount.setText(String.valueOf(response.getMobileDcsFlight().getDeparture().getSegmentFigure().getTotalBoardedPassenger()));
-    } catch (Exception e) {
-      Timber.e(e);
+    if (response.getMobileDcsFlight().getArrivalList().size()>0) {
+      boardedCount.setText(String.valueOf(response.getMobileDcsFlight().getArrivalList().get(0).getSegmentFigure().getTotalBoardedPassenger()));
     }
     showResultIcon(true, null);
   }
