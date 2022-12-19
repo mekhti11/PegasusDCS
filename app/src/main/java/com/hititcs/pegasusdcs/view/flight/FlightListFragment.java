@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hititcs.pegasusdcs.R;
+import com.hititcs.pegasusdcs.domain.model.Arrival;
 import com.hititcs.pegasusdcs.util.AnimUtils;
 import com.hititcs.pegasusdcs.domain.model.DepartingFlight;
 import com.hititcs.pegasusdcs.util.AppUtils;
@@ -39,7 +40,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 public class FlightListFragment extends BaseFragment<FlightListFragment> implements FlightListView,
-    FlightListAdapter.FlightOnClickListener {
+        FlightListAdapter.FlightOnClickListener {
 
   @BindView(R.id.rcw_flights)
   RecyclerView recyclerViewFlights;
@@ -89,7 +90,7 @@ public class FlightListFragment extends BaseFragment<FlightListFragment> impleme
   @Nullable
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-      @Nullable Bundle savedInstanceState) {
+                           @Nullable Bundle savedInstanceState) {
     final View fragmentView = inflater.inflate(R.layout.content_flight_list, container, false);
     bindView(fragmentView);
     return fragmentView;
@@ -153,7 +154,8 @@ public class FlightListFragment extends BaseFragment<FlightListFragment> impleme
     initRecyclerView();
     if (flightSummaries.size()>0) {
       flightList = flightSummaries;
-      flightListAdapter.update(filterFlightsByFlightNumber(edtSearch.getText().toString()));
+      flightList =  parseList();
+       flightListAdapter.update(filterFlightsByFlightNumber(edtSearch.getText().toString()));
       recyclerViewFlights.scrollToPosition(0);
       recyclerViewFlights.setVisibility(View.VISIBLE);
       twTotalNumberOfFlights.setText(String
@@ -161,6 +163,35 @@ public class FlightListFragment extends BaseFragment<FlightListFragment> impleme
       twTotalNumberOfFlights.setVisibility(View.VISIBLE);
       AnimUtils.animateShowView(recyclerViewFlights);
     }
+  }
+
+  private ArrayList<DepartingFlight> parseList() {
+    ArrayList<DepartingFlight> temp = new ArrayList<>();
+    temp.addAll(flightList);
+    for (int i = 0; i <flightList.size() ; i++) {
+      for (int j = i + 1; j < flightList.size(); j++) {
+        if (flightList.get(i).getLegIsn().equals(flightList.get(j).getLegIsn())) {
+          if (flightList.get(i).getArrivalList().size() > 0 && flightList.get(j).getArrivalList().size() > 0 &&
+                  flightList.get(i).getArrivalList().size() < flightList.get(j).getArrivalList().size()) {
+            temp.remove(i);
+          }
+        }
+      }
+    }
+
+    ArrayList<DepartingFlight> listForAdapter = new ArrayList<>();
+    List<Arrival> tmp = new ArrayList<>();
+
+    for (DepartingFlight dp : temp){
+      for (Arrival arr : dp.getArrivalList()){
+        DepartingFlight t  = dp;
+        t.getArrivalList().clear();
+        t.getArrivalList().add(arr);
+//        listForAdapter.add(t.setArrivalList(new ArrayList<Arrival>()));
+//        listForAdapter.get(listForAdapter.indexOf(dp)).setArrivalList(t);
+      }
+    }
+    return listForAdapter;
   }
 
   private List<DepartingFlight> filterFlightsByFlightNumber(String number) {
@@ -203,7 +234,7 @@ public class FlightListFragment extends BaseFragment<FlightListFragment> impleme
 
   private void initRecyclerView() {
     flightListAdapter = new FlightListAdapter(this,
-        ImageUtils.loadImageUriAsDrawable(getContext(), AppUtils.getCompanyLogoUri(getContext())));
+            ImageUtils.loadImageUriAsDrawable(getContext(), AppUtils.getCompanyLogoUri(getContext())));
     recyclerViewFlights.setLayoutManager(new LinearLayoutManager(getContext()));
     recyclerViewFlights.setAdapter(flightListAdapter);
   }
