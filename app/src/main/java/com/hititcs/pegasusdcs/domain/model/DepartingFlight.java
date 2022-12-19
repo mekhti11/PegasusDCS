@@ -36,6 +36,9 @@ public class DepartingFlight {
     @Expose
     String status;
 
+    public DepartingFlight() {
+    }
+
     public String getAaCode() {
         return aaCode;
     }

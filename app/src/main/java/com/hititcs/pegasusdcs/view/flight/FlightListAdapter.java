@@ -77,7 +77,7 @@ public class FlightListAdapter extends RecyclerView.Adapter<FlightListViewHolder
     holder.getTvBoardingTime().setText(String.format("%s: %s",
         holder.itemView.getContext().getString(R.string.item_flight_boarding_time),
         DateTimeUtils
-            .getTimeFromZonedDateTime(flightSummaryList.get(0).getBoardingTime())));
+            .getTimeFromZonedDateTime(flightSummaryList.get(position).getBoardingTime())));
     holder.itemView.setOnClickListener(
         v -> flightOnClickListener.startFlightDetailActivity(flightSummaryList.get(position),position));
 //    if (flightSummaryList.get(position).isVisible()) {
