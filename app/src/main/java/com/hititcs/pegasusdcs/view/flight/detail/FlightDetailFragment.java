@@ -7,24 +7,36 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.hititcs.pegasusdcs.R;
+import com.hititcs.pegasusdcs.domain.model.Arrival;
+import com.hititcs.pegasusdcs.domain.model.MobileDcsFlight;
 import com.hititcs.pegasusdcs.model.DeviceEnum;
 import com.hititcs.pegasusdcs.util.AnimUtils;
 import com.hititcs.pegasusdcs.domain.model.DepartingFlight;
 import com.hititcs.pegasusdcs.domain.model.DeviceUtils;
 import com.hititcs.pegasusdcs.domain.model.FlightDetailResponse;
+import com.hititcs.pegasusdcs.util.AppUtils;
 import com.hititcs.pegasusdcs.util.DateTimeUtils;
+import com.hititcs.pegasusdcs.util.ImageUtils;
 import com.hititcs.pegasusdcs.util.ParcelUtils;
 import com.hititcs.pegasusdcs.view.BaseFragment;
 import com.hititcs.pegasusdcs.view.Presenter;
 import com.hititcs.pegasusdcs.view.barcode.ScanBarcodeActivity;
+import com.hititcs.pegasusdcs.view.flight.FlightListAdapter;
+import com.hititcs.pegasusdcs.view.flight.FlightListFragment;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -42,19 +54,10 @@ public class FlightDetailFragment extends BaseFragment<FlightDetailFragment> imp
 
   @BindView(R.id.scan_barcode)
   LinearLayout scanBarcodeButton;
-
-  @BindView(R.id.tv_dep_port)
-  TextView tvDepPort;
-  @BindView(R.id.tv_arr_port)
-  TextView tvArrPort;
+  @BindView(R.id.rw_item)
+  RecyclerView recyclerViewFlightsDetail;
   @BindView(R.id.tv_flight_type)
   TextView tvFlightType;
-  @BindView(R.id.tv_dep_date)
-  TextView tvDepDate;
-  @BindView(R.id.tv_arr_date)
-  TextView tvArrDate;
-  @BindView(R.id.tv_boarding_time)
-  TextView tvBoardingTime;
   @BindView(R.id.tv_gate)
   TextView tvGate;
   @BindView(R.id.tv_flight_no)
@@ -77,13 +80,16 @@ public class FlightDetailFragment extends BaseFragment<FlightDetailFragment> imp
   TextView tvDelayTime;
   @BindView(R.id.rlt_flight_detail)
   RelativeLayout rltFlightDetail;
-  @BindView(R.id.tv_flight_status)
-  TextView tvTopFlightStatus;
+
   @BindView(R.id.tv_flight_status_data)
   TextView tvFlightStatus;
+  @BindView(R.id.iv_company_logo)
+  ImageView ivCompanyLogo;
   private String boardedCount;
   private DepartingFlight flightSummary;
   private Drawable companyLogo;
+  private FlightDetailAdapter flightDetailAdapter;
+  private MobileDcsFlight flightList;
 
   public static FlightDetailFragment newInstance(DepartingFlight flightSummary) {
     Bundle args = new Bundle();
@@ -97,6 +103,7 @@ public class FlightDetailFragment extends BaseFragment<FlightDetailFragment> imp
   public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     flightSummary = ParcelUtils.unwrap(getArguments(), EXTRA_FLIGHT);
+
   }
 
   @Override
@@ -140,55 +147,70 @@ public class FlightDetailFragment extends BaseFragment<FlightDetailFragment> imp
     super.onPause();
   }
 
+
   @Override
   public void showFlightDetail(FlightDetailResponse flightsOutputDto) {
-    tvDepPort.setText(flightsOutputDto.getMobileDcsFlight().getDeparture().getLocation().getPortCode());
-    tvArrPort.setText(flightsOutputDto.getMobileDcsFlight().getArrivalList().get(0).getLocation().getPortCode());
-    tvFlightNo.setText(String.format("%s%s", flightSummary.getAaCode(),
-        flightSummary.getFlightNo()));
+    flightList = flightsOutputDto.getMobileDcsFlight();
+    initRecyclerView();
+  int size = flightList.getArrivalList().size();
+   // tvDepPort.setText(flightsOutputDto.getMobileDcsFlight().getDeparture().getLocation().getPortCode());
+   // tvArrPort.setText(flightsOutputDto.getMobileDcsFlight().getArrivalList().get(0).getLocation().getPortCode());
+    tvFlightNo.setText(String.format("%s%s", flightSummary.getAaCode(), flightSummary.getFlightNo()));
     tvFlightType.setText(flightsOutputDto.getMobileDcsFlight().getAaCode());
     tvGate.setText(flightsOutputDto.getMobileDcsFlight().getBoardingGate());
-    tvBoardingTime.setText(String.format("%s: %s", getString(R.string.item_flight_boarding_time),
-        DateTimeUtils
-            .getTimeFromZonedDateTime(flightsOutputDto.getMobileDcsFlight().getBoardingTime())));
-    tvDepDate.setText(
+  //  tvBoardingTime.setText(String.format("%s: %s", getString(R.string.item_flight_boarding_time),
+   //     DateTimeUtils
+    //       .getTimeFromZonedDateTime(flightsOutputDto.getMobileDcsFlight().getBoardingTime())));
+  /*  tvDepDate.setText(
         DateTimeUtils.getTimeFromZonedDateTime(flightsOutputDto.getMobileDcsFlight().getDeparture().getLocalTime()));
     tvArrDate.setText(
         DateTimeUtils.getTimeFromZonedDateTime(flightsOutputDto.getMobileDcsFlight().getArrivalList().get(0).getLocalTime()));
-
+*/
     tvReg.setText(flightsOutputDto.getMobileDcsFlight().getEquipmentType().getAcReg());
     tvAircraft.setText(flightsOutputDto.getMobileDcsFlight().getEquipmentType().getAirEquipTypeModel());
-
     tvGateDetail.setText(flightsOutputDto.getMobileDcsFlight().getBoardingGate());
+
     if (flightsOutputDto.getMobileDcsFlight().getArrivalList()!=null &&
             flightsOutputDto.getMobileDcsFlight().getArrivalList().size()>0) {
-      if (flightsOutputDto.getMobileDcsFlight().getArrivalList().get(0).getSegmentFigure() != null &&
-              !String.valueOf(flightsOutputDto.getMobileDcsFlight().getArrivalList().get(0).getSegmentFigure().getTotalBoardedPassenger()).isEmpty()) {
-        tvBoarded.setText(String.valueOf(flightsOutputDto.getMobileDcsFlight().getArrivalList().get(0).getSegmentFigure().getTotalBoardedPassenger()));
-        boardedCount = String.valueOf(flightsOutputDto.getMobileDcsFlight().getArrivalList().get(0).getSegmentFigure().getTotalBoardedPassenger());
-      } else {
-        tvBoarded.setText("0");
-        boardedCount = "0";
-      }
-      if (flightsOutputDto.getMobileDcsFlight().getArrivalList().get(0).getSegmentFigure() != null &&
-              !String.valueOf(flightsOutputDto.getMobileDcsFlight().getArrivalList().get(0).getSegmentFigure().getTotalCheckedPassenger()).isEmpty()) {
-        tvCheckIn.setText(String.valueOf(flightsOutputDto.getMobileDcsFlight().getArrivalList().get(0).getSegmentFigure().getTotalCheckedPassenger()));
-      } else {
-        tvCheckIn.setText("0");
-      }
-      if (flightsOutputDto.getMobileDcsFlight().getArrivalList().get(0).getSegmentFigure() != null &&
-              !String.valueOf(flightsOutputDto.getMobileDcsFlight().getArrivalList().get(0).getSegmentFigure().getTotalUnboardedPassenger()).isEmpty()) {
-        tvUnboarded.setText(String.valueOf(flightsOutputDto.getMobileDcsFlight().getArrivalList().get(0).getSegmentFigure().getTotalUnboardedPassenger()));
-      } else {
-        tvUnboarded.setText("0");
-      }
+      int countBoarded = 0,countChecked = 0, countUnboarded = 0;
+
+
+        for (int i = 0; i <flightsOutputDto.getMobileDcsFlight().getArrivalList().size() ; i++) {
+          countBoarded += flightsOutputDto.getMobileDcsFlight().getArrivalList().get(i).getSegmentFigure().getTotalBoardedPassenger();
+          countChecked += flightsOutputDto.getMobileDcsFlight().getArrivalList().get(i).getSegmentFigure().getTotalCheckedPassenger();
+          countUnboarded += flightsOutputDto.getMobileDcsFlight().getArrivalList().get(i).getSegmentFigure().getTotalUnboardedPassenger();
+          }
+        if (flightsOutputDto.getMobileDcsFlight().getArrivalList().get(size-1).getSegmentFigure() != null &&
+                !String.valueOf(flightsOutputDto.getMobileDcsFlight().getArrivalList().get(size-1).getSegmentFigure().getTotalBoardedPassenger()).isEmpty()) {
+          tvBoarded.setText(String.valueOf(countBoarded));
+          boardedCount = String.valueOf(countBoarded);
+        }
+        else {
+          tvBoarded.setText("0");
+          boardedCount = "0";
+        }
+        if (flightsOutputDto.getMobileDcsFlight().getArrivalList().get(size-1).getSegmentFigure() != null &&
+                !String.valueOf(flightsOutputDto.getMobileDcsFlight().getArrivalList().get(size-1).getSegmentFigure().getTotalCheckedPassenger()).isEmpty()) {
+           tvCheckIn.setText(String.valueOf(countChecked));
+        } else {
+          tvCheckIn.setText("0");
+        }
+        if (flightsOutputDto.getMobileDcsFlight().getArrivalList().get(size-1).getSegmentFigure() != null &&
+                !String.valueOf(flightsOutputDto.getMobileDcsFlight().getArrivalList().get(size-1).getSegmentFigure().getTotalUnboardedPassenger()).isEmpty()) {
+           tvUnboarded.setText(String.valueOf(countUnboarded));
+        } else {
+          tvUnboarded.setText("0");
+        }
+
+
+
     }
-//
+    ivCompanyLogo.setVisibility(View.VISIBLE);
     tvBoardingGate.setText(flightsOutputDto.getMobileDcsFlight().getBoardingGate());
     tvDelayTime.setText(
-        DateTimeUtils.normalizeZonedDateTime(flightsOutputDto.getMobileDcsFlight().getDelayTime()));
-    tvTopFlightStatus.setText(String.format("%s: %s", getString(R.string.item_flight_flight_status),
-        flightsOutputDto.getMobileDcsFlight().getStatus()));
+       DateTimeUtils.normalizeZonedDateTime(flightsOutputDto.getMobileDcsFlight().getDelayTime()));
+   // tvTopFlightStatus.setText(String.format("%s: %s", getString(R.string.item_flight_flight_status),
+   //     flightsOutputDto.getMobileDcsFlight().getStatus()));
     tvFlightStatus.setText(flightsOutputDto.getMobileDcsFlight().getStatus());
 
     if(tvFlightStatus.getText().toString().equals("CI") || tvFlightStatus.getText().toString().equals("CC")){
@@ -200,8 +222,15 @@ public class FlightDetailFragment extends BaseFragment<FlightDetailFragment> imp
     }
 
 
-    rltFlightDetail.setVisibility(View.VISIBLE);
-    AnimUtils.animateShowView(rltFlightDetail);
+   rltFlightDetail.setVisibility(View.VISIBLE);
+   AnimUtils.animateShowView(rltFlightDetail);
+  }
+
+  private void initRecyclerView() {
+    flightDetailAdapter = new FlightDetailAdapter(flightList);
+    recyclerViewFlightsDetail.setAdapter(flightDetailAdapter);
+    recyclerViewFlightsDetail.setLayoutManager(new LinearLayoutManager(getContext()));
+
   }
 
   @Override

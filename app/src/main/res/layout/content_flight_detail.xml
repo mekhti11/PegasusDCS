@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    >
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,29 +13,133 @@
         android:fillViewport="true"
         android:orientation="vertical"
         >
-
         <RelativeLayout
-            android:id="@+id/rlt_flight_detail"
+            android:id="@+id/rlt_flight_info"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginStart="@dimen/spacing_medium"
+            android:layout_marginEnd="@dimen/spacing_medium"
+            android:layout_marginTop="@dimen/spacing_xsmall"
+            android:layout_marginBottom="@dimen/spacing_xsmall"
+            android:paddingStart="@dimen/spacing_medium"
+            android:paddingEnd="@dimen/spacing_medium"
+            android:paddingTop="@dimen/spacing_xsmall"
+            android:paddingBottom="@dimen/spacing_xsmall"
             >
 
-            <include
-                layout="@layout/item_flight"
-                android:id="@+id/ln_item_flight"
-                android:layout_alignParentTop="true"
-                android:layout_width="match_parent"
+            <RelativeLayout
+                android:id="@+id/fl_logo"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/spacing_xxmmlarge"
+                android:layout_alignParentStart="true"
+                >
+
+                <ImageView
+                    android:id="@+id/iv_company_logo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/spacing_26"
+                    android:layout_centerInParent="true"
+                    android:layout_marginStart="@dimen/spacing_smedium"
+                    android:layout_marginEnd="@dimen/spacing_smedium"
+                    android:adjustViewBounds="true"
+                    android:maxWidth="@dimen/spacing_xxxxlarge"
+                    android:visibility="invisible"
+                    app:srcCompat="@drawable/ic_logo_pgs"
+                    tools:visibility="visible" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_toEndOf="@+id/fl_logo">
+
+                <TextView
+                    android:id="@+id/tv_flight_no_header"
+                    style="@style/TextAppearance.App.Medium.Bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_msmall"
+                    android:layout_toStartOf="@+id/tv_flight_no"
+                    android:text="@string/flights_flight_no"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_flight_no"
+                    style="@style/TextAppearance.App.Medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="@dimen/spacing_medium"
+                    android:layout_marginLeft="@dimen/spacing_medium"
+                    android:layout_marginTop="@dimen/spacing_msmall"
+                    android:layout_marginEnd="@dimen/spacing_medium"
+                    android:layout_marginRight="@dimen/spacing_medium"
+                    android:text="TK1235"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tv_gate_header"
+                    style="@style/TextAppearance.App.Medium.Bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_flight_no"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginEnd="7dp"
+                    android:layout_toStartOf="@+id/tv_gate"
+                    android:text="@string/flights_gate"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_gate"
+                    style="@style/TextAppearance.App.Medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_flight_no"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="@dimen/spacing_medium"
+                    android:layout_marginLeft="@dimen/spacing_medium"
+                    android:layout_marginTop="@dimen/spacing_msmall"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="@dimen/spacing_medium"
+                    android:text="X"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+            </RelativeLayout>
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/rlt_flight_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_below="@id/rlt_flight_info"
+            >
+
+            <androidx.recyclerview.widget.RecyclerView
                 android:layout_marginStart="@dimen/spacing_medium"
                 android:layout_marginEnd="@dimen/spacing_medium"
                 android:layout_marginTop="@dimen/spacing_xsmall"
                 android:layout_marginBottom="@dimen/spacing_xsmall"
-                />
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:listitem="@layout/item_detail_rw"
+                android:id="@+id/rw_item"
+                android:scrollbars="vertical"
+                android:visibility="visible"
+                tools:itemCount="3"
+                tools:visibility="visible"/>
 
             <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@+id/ln_item_flight"
+                android:layout_below="@+id/rw_item"
                 android:layout_above="@+id/scan_barcode"
                 android:scrollbarFadeDuration="15000"
                 >

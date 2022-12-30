@@ -139,6 +139,10 @@ public abstract class SingleSubscriber<T> implements SingleObserver<T>, MySubscr
           error = "BARCODE PARSE ERROR";
           break;
         }
+        case("ERR_D154"):{
+          error = "DEP PORT EXCEPTION";
+          break;
+        }
       }
     }
 

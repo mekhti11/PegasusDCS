@@ -178,29 +178,7 @@ public class FlightListFragment extends BaseFragment<FlightListFragment> impleme
         }
       }
     }
-
-    ArrayList<DepartingFlight> listForAdapter = new ArrayList<>();
-
-    for (DepartingFlight dp : temp){
-
-      for (Arrival arr : dp.getArrivalList()){
-        DepartingFlight tmp = new DepartingFlight();
-
-        tmp.setAaCode(dp.getAaCode());
-        tmp.setFlightNo(dp.getFlightNo());
-        tmp.setBoardingGate(dp.getBoardingGate());
-        tmp.setBoardingTime(dp.getBoardingTime());
-        tmp.setStatus(dp.getStatus());
-        tmp.setDelayTime(dp.getDelayTime());
-        tmp.setLegIsn(dp.getLegIsn());
-        tmp.setDeparture(dp.getDeparture());
-        tmp.setArrivalList(new ArrayList<>());
-        tmp.getArrivalList().add(arr);
-
-        listForAdapter.add(tmp);
-      }
-    }
-    return listForAdapter;
+    return temp;
   }
 
   private List<DepartingFlight> filterFlightsByFlightNumber(String number) {
